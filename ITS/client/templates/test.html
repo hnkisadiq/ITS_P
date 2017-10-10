@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<title>ITS_Farm_Helper</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<head><style>
+div.container {
+    width: 100%;
+    border: 1px solid gray;
+}
+nav {
+    float: left;
+    max-width: 100px;
+    margin: 0;
+    padding: 1em;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+   
+nav ul a {
+    text-decoration: none;
+}
+
+article {
+    margin-left: 12  0px;
+    border-left: 1px solid gray;
+    padding: 1em;
+    overflow: hidden;
+}
+       #map {
+        height: 500px;
+        width: 100%;}
+        #floating-panel {
+        position: absolute;
+        top: 10px;
+        left: 25%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+      }
+.button {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #001A27;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 22px;
+  padding: 20px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+#dock img {
+  width: 64px;
+  height: 64px;
+  -webkit-box-reflect: below 2px
+		    -webkit-gradient(linear, left top, left bottom, from(transparent),
+		    color-stop(0.7, transparent), to(rgba(255,255,255,.5))); /* reflection is supported by webkit only */
+  -webkit-transition: all 0.3s;
+  -webkit-transform-origin: 50% 100%;
+}
+#dock li:hover img { 
+  -webkit-transform: scale(2);
+  margin: 0 2em;
+}
+
+#dock li:hover + li img,
+#dock li.prev img {
+  -webkit-transform: scale(1.5);
+  margin: 0 1.5em;
+}
+li{
+	display: inline;
+}
+#nav {
+width:750px;
+margin:0 auto;
+list-style:none;
+}
+
+#nav a {
+display:block;
+text-align:center;
+width:150px; /* fixed width */
+text-decoration:none; 
+}</style></head>
+<body style="background: #07575B">
+<div class="w3-sidebar w3-bar-block w3-card-2 w3-animate-left" style="display:none;" id="mySidebar">
+  <button class="w3-bar-item w3-button w3-large"
+  onclick="w3_close()">Close &times;</button>
+<h2 class="w3-center">Related Photos</h2>
+
+<div class="w3-content w3-display-container">
+  <img class="mySlides" src="https://static.pexels.com/photos/248797/pexels-photo-248797.jpeg" style="width:100%">
+  <img class="mySlides" src="http://tse4.mm.bing.net/th?id=ORT.TH_470633631&pid=1.12&eid=G.470633631" style="width:100%">
+  <img class="mySlides" src="img_mountains.jpg" style="width:100%">
+  <img class="mySlides" src="img_forest.jpg" style="width:100%">
+
+  <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
+  <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
+</div>
+<div class="container">
+<nav>
+  <ul>
+    <li><a href="#Personal_info">Personal Info</a></li>
+    <li><a href="#Location_details">Location Details</a></li>
+    <li><a href="#add_details">Additional Details</a></li>
+  </ul>
+</nav>
+<article>
+  <h1 name="personal_info">Personal Info</h1>
+  <img src="https://static.pexels.com/photos/248797/pexels-photo-248797.jpeg" style="width:100%">
+  <p>Name:Koushik Bharadwaj</p>
+  <p>Address:</p>
+  <p>Contacts:</p>
+  <p>DOB:</p>
+  <p>Adhaar_id:</p>
+  <h1 name="Location_details">Location Details</h1>
+  <p>Co-ordinates:</p>
+  <p>Area:</p>
+  <p>Current_crop:</p>
+  <p>Under the Name:</p>
+  <h1 name="add_details">Additional Details</h1>
+  <p>Audio-clips:</p>
+  <p>Lease Contract(if any):</p>
+</article>
+</div>
+</div>
+
+<div zclass="w3-main" id="main" style="background: black">
+
+<div class="w3-teal">
+  <button class="w3-button w3-teal w3-xlarge" onclick="w3_open()">&#9776;</button>
+  <div class="w3-container">
+    <h1 id="demo1">My Page</h1>
+  </div>
+</div>
+
+<div class="w3-container">
+    <div id="map"></div>
+</div>
+
+</div>
+<div id="dock-container" style="background: #F4CC70;width: 400px;margin-left: 500px;height:100px;border-radius: 25px">
+  <div id="dock" >
+  <ul id="nav">
+    <li><img src="http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/house-icon.png" onclick="filterMarkers('house')"></li>
+    <li><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-agSX26uiq1NkEizcTnJUaPx5zp9CKlkvkhFRZSwFjCF8T6dvcQ" onclick="filterMarkers('well')"></li>
+    <li><img src="http://eastmanscorner.com/2016site/wp-content/uploads/2015/01/Farmer-icons.png" onclick="filterMarkers('farm')" ></li>
+    <li><img src="https://maxcdn.icons8.com/Share/icon/Business//sell_property1600.png" onclick="filterMarkers('')"></li>
+  </ul>
+  <div class="base"></div>
+  </div>
+</div>
+<script>
+function addPrevClass (e) {
+  var target = e.target;
+    if(target.getAttribute('src')) { // check if it is img
+      var li = target.parentNode.parentNode;
+      var prevLi = li.previousElementSibling;
+      if(prevLi) {
+        prevLi.className = 'prev';
+      }
+	
+      target.addEventListener('mouseout', function() { 
+        prevLi.removeAttribute('class');
+      }, false);
+  }
+}
+if (window.addEventListener) {
+  document.getElementById("dock").addEventListener('mouseover', addPrevClass, false);
+}
+
+
+var slideIndex = 1;
+showDivs(slideIndex);
+
+function plusDivs(n) {
+  showDivs(slideIndex += n);
+}
+
+function showDivs(n) {
+  var i;
+  var x = document.getElementsByClassName("mySlides");
+  if (n > x.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = x.length}
+  for (i = 0; i < x.length; i++) {
+     x[i].style.display = "none";  
+  }
+  x[slideIndex-1].style.display = "block";  
+}
+var map;
+var markers1=[];
+var gmarkers1=[];
+markers1 = [
+    ['0', 'Title', 14.152132,79.822365, 'well'],
+    ['1', 'Title', 14.150691, 79.823556, 'house'],
+    ['2', 'Title', 14.149672, 79.821073, 'well'],
+    ['3', 'Title',14.149880, 79.822832, 'house']
+];
+function w3_open() {
+  
+  document.getElementById("demo1").innerHTML = "koushik's Page";
+  document.getElementById("main").style.marginLeft = "25%";
+  document.getElementById("mySidebar").style.width = "25%";
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("openNav").style.display = 'none';
+}
+function w3_close() {
+  document.getElementById("main").style.marginLeft = "0%";
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("openNav").style.display = "inline-block";
+}
+       
+      function initMap(){ 
+        var pos = {lat: 14.149498, lng: 79.820627};
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 15,
+          center: pos,
+          mapTypeId: 'satellite'
+        });
+
+    infoWindow = new google.maps.InfoWindow;
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('Location found.');
+            infoWindow.open(map);
+            map.setCenter(pos);
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        }
+         else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+      
+
+ for (i = 0; i < markers1.length; i++) {
+        addMarker(markers1[i]);
+    }
+function addMarker(marker) {
+    var category = marker[4];
+    var title = marker[1];
+    var pos = new google.maps.LatLng(marker[2], marker[3]);
+    var content = marker[1];
+    var inc=Math.floor((Math.random() * 50) + 20)
+	marker1 = new google.maps.Marker({     
+        title: title,
+        position: pos,
+        icon:icon(category),
+        category: category,
+        map: map
+    });
+      gmarkers1.push(marker1);
+
+    // Marker click listener
+    google.maps.event.addListener(marker1, 'click', (function (marker1, content) {
+        return function () {
+            
+            map.panTo(this.getPosition());
+            map.setZoom(18);
+            w3_open();
+        }
+    })(marker1, content));
+  function icon(category) {
+    if (category=='house') {
+   return{
+    url: 'https://www.shareicon.net/download/2015/09/25/106883_home_512x512.png',
+    scaledSize: new google.maps.Size(inc, inc), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+}}
+if (category=='well') {
+  return{
+    url: 'http://johnswellservice.net/communities/6/000/001/356/876//images/3122118_174x174.png',
+    scaledSize: new google.maps.Size(inc, inc), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+}
+}
+  }
+
+}
+filterMarkers = function (category) {
+    for (i = 0; i < markers1.length; i++) {
+        marker = gmarkers1[i];
+        // If is same category or category not picked
+        if (marker.category == category || category.length === 0) {
+            marker.setVisible(true);
+        }
+        // Categories don't match 
+        else {
+            marker.setVisible(false);
+            bermudaTriangle.setVisible(false);
+        }
+        if (category=='farm') {
+          bermudaTriangle.setVisible(true);
+        }
+    }
+}
+        var triangleCoords = [
+          {lat: 14.151290, lng: 79.819619},
+          {lat: 14.150915, lng: 79.820740},
+          {lat: 14.150270, lng:79.820563},
+          {lat: 14.150702, lng:79.819394},
+          {lat: 14.151290,lng:79.819619},
+        ];
+
+        // Construct the polygon.
+        var bermudaTriangle = new google.maps.Polygon({
+          paths: triangleCoords,
+          strokeColor: '#FF0000',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: '#FF0000',
+          fillOpacity: 0.35
+        });
+        bermudaTriangle.setMap(map);
+      }
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKHLb2OuY52CPNiJXFsgRm_Vdj899NmXI&callback=initMap">
+    </script>
+</body>
+</html>
