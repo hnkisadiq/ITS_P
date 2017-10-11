@@ -22,19 +22,16 @@ class Snippet(models.Model):
 class Identity(models.Model):
     Adhaar_id=models.IntegerField()
     Name= models.CharField(max_length=100, blank=True, default='Koushik')
-    def __str__(self):              # __unicode__ on Python 2
-        return self.Name
+
 
 class Property_1(models.Model):
     A_id=models.ForeignKey(Identity,on_delete=models.CASCADE)
     house_id=models.AutoField(primary_key=True)
-    def __str__(self):              # __unicode__ on Python 2
-        return self.house_id
+
 class Property_2(models.Model):
     A_id=models.ForeignKey(Identity,on_delete=models.CASCADE)
     farm_id=models.AutoField(primary_key=True)
-    def __str__(self):              # __unicode__ on Python 2
-        return self.farm_id
+
 class Houses(models.Model):
     H_id=models.ForeignKey(Property_1,on_delete=models.CASCADE)
     lat=models.DecimalField(decimal_places=2,max_digits=5)
