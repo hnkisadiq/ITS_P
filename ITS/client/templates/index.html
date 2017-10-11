@@ -547,6 +547,19 @@ l.push({{i.Income}})
 house.push(l);
 </script>
 {% endfor %}
+<script>var well=[];
+</script>
+{% for i in my_data %}
+<script>
+var l=[];
+l.push("{{i.id}}");
+l.push({{i.lat}});
+l.push({{i.lon}});
+l.push('well');
+l.push({{i.depth}});
+well.push(l);
+</script>
+{% endfor %}
 </div>
 <!-- Script -->
 <script>
