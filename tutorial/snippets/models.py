@@ -34,10 +34,14 @@ class Property_2(models.Model):
 
 class Houses(models.Model):
     H_id=models.ForeignKey(Property_1,on_delete=models.CASCADE)
-    lat=models.DecimalField(decimal_places=2,max_digits=5)
-    lon=models.DecimalField(decimal_places=2,max_digits=5)
+    h_point = models.PointField(default='')
     Area=models.IntegerField()
     Income=models.IntegerField()
+    
+class Well(models.Model):
+    w_id=models.ForeignKey(Property_1,on_delete=models.CASCADE)
+    w_point = models.PointField(default='')
+    depth=models.IntegerField()
 
 class Farms(models.Model):
     F_id=models.ForeignKey(Property_2,on_delete=models.CASCADE)
