@@ -1,8 +1,8 @@
 from rest_framework import status
 from snippets.serializers import FarmSerializer
 from snippets.models import Farms
-from snippets.serializers import HouseSerializer
-from snippets.models import Houses
+from snippets.serializers import HouseSerializer,WellSerializer
+from snippets.models import Houses,Well
 from snippets.serializers import Property2Serializer
 from snippets.serializers import Property1Serializer
 from snippets.serializers import IdentitySerializer
@@ -218,6 +218,23 @@ def house_detail(request, pk,format=None):
     elif request.method == 'DELETE':
         snippet.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET', 'POST'])
+def well_list(request,format=None):
+    """
+    List all snippets, or create a new snippet.
+    """
+    if request.method == 'GET':
+        snippets = Well.objects.all()
+        serializer = WellSerializer(snippets, many=True)
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        serializer = WellSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'POST'])
 def farm_list(request,format=None):
