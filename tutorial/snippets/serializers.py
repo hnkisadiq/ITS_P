@@ -90,7 +90,7 @@ class Property2Serializer(serializers.ModelSerializer):
 class HouseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Houses
-        fields = ('id','H_id', 'h_point','Area','Income')
+        fields = ('id','H_id', 'h_point','Area','Income','img')
 
     def create(self, validated_data):
         """
@@ -106,6 +106,7 @@ class HouseSerializer(serializers.ModelSerializer):
         instance.h_point = validated_data.get('h_point', instance.h_point)
         instance.Area = validated_data.get('Area', instance.Area)
         instance.Income = validated_data.get('Income', instance.Income)
+        instance.img = validated_data.get('img', instance.img)
         instance.save()
         return instance
 class WellSerializer(serializers.ModelSerializer):
@@ -132,7 +133,7 @@ class WellSerializer(serializers.ModelSerializer):
 class FarmSerializer(serializers.ModelSerializer):
     class Meta:
         model = Farms
-        fields = ('id','F_id', 'poly','Area','crops')
+        fields = ('id','F_id', 'poly','Area','crops','img')
 
     def create(self, validated_data):
         """
@@ -148,5 +149,6 @@ class FarmSerializer(serializers.ModelSerializer):
         instance.poly = validated_data.get('poly', instance.poly)
         instance.Area = validated_data.get('Area', instance.Area)
         instance.crops = validated_data.get('crops', instance.crops)
+        instance.img = validated_data.get('img', instance.img)
         instance.save()
         return instance
