@@ -37,6 +37,7 @@ class Houses(models.Model):
     h_point = models.PointField(default='')
     Area=models.IntegerField()
     Income=models.IntegerField()
+    img=models.CharField(max_lenth=500,default='00')
     
 class Well(models.Model):
     w_id=models.ForeignKey(Property_1,on_delete=models.CASCADE)
@@ -47,6 +48,7 @@ class Farms(models.Model):
     F_id=models.ForeignKey(Property_2,on_delete=models.CASCADE)
     Area=models.IntegerField()
     poly = models.PolygonField(default='')
+    img=models.CharField(max_lenth=500,default='00')
     crops= models.CharField(max_length=100, blank=True, default='Rice')
     
 
