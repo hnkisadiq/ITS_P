@@ -533,7 +533,8 @@
           </div>
         </div>
       </div>
-      <script>var house=[],split1=[];
+<script>
+var house=[];
 </script>
 {% for i in house %}
 <script>
@@ -547,7 +548,8 @@ l.push({{i.Income}})
 house.push(l);
 </script>
 {% endfor %}
-<script>var well=[];
+<script>
+var well=[];
 </script>
 {% for i in my_data %}
 <script>
@@ -564,12 +566,56 @@ well.push(l);
 <!-- Script -->
 <script>
 function myMap() {
-var mapProp= {
+var mapProp1= {
     center:new google.maps.LatLng(51.508742,-0.120850),
     zoom:15,
     mapTypeId: 'satellite'
 };
-var map=new google.maps.Map(document.getElementById("map"),mapProp);
+var map1=new google.maps.Map(document.getElementById("map1"),mapProp1);
+var map2=new google.maps.Map(document.getElementById("map2"),mapProp1);
+for (i = 0; i < house.length; i++) {
+        addHouse(house[i]);
+    }
+for (i = 0; i < well.length; i++) {
+     addWell(well[i]);
+}
+function addHouse(marker) {
+    var category = marker[3];
+    var title = marker[3];
+    var income=marker[5];
+    var area=marker[4];
+    //var img=marker[8];
+    var pos = new google.maps.LatLng(marker[1], marker[2]);
+    //var content = marker[1];
+  marker1 = new google.maps.Marker({
+        title: title,
+        position: pos,
+        category: category,
+        map: map1
+    });
+          marker1.addListener('click', function() {
+          map1.setZoom(8);
+          map1.setCenter(marker.getPosition());
+        });
+}
+function addWell(marker) {
+    var category = marker[3];
+    var title = marker[3];
+    var depth=marker[4];
+    //var img=marker[8];
+    var pos = new google.maps.LatLng(marker[1], marker[2]);
+    //var content = marker[1];
+  marker1 = new google.maps.Marker({
+        title: title,
+        position: pos,
+        category: category,
+        map: map2
+    });
+            marker1.addListener('click', function() {
+          map2.setZoom(8);
+          map2.setCenter(marker.getPosition());
+        });
+}
 }
 document.getElementById("info").innerHtml=house;
 </script>
