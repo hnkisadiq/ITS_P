@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^property2/$', views.property2_list),
     url(r'^house/$', views.house_list),
     url(r'^farm/$', views.farm_list),
+    url(r'^well/$', views.well_list),
     url(r'^snippets/(?P<pk>[0-9]+)/$', views.snippet_detail),
     url(r'^property1/(?P<pk>[0-9]+)/$', views.property1_detail),
     url(r'^property2/(?P<pk>[0-9]+)/$', views.property2_detail),
