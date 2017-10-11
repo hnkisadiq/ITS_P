@@ -41,14 +41,6 @@ class Houses(models.Model):
 
 class Farms(models.Model):
     F_id=models.ForeignKey(Property_2,on_delete=models.CASCADE)
-    '''lat1=models.DecimalField(decimal_places=2,max_digits=5, default = '00000')
-    lon1=models.DecimalField(decimal_places=2,max_digits=5, default = '00000')
-    lat2=models.DecimalField(decimal_places=2,max_digits=5, default = '00000')
-    lon2=models.DecimalField(decimal_places=2,max_digits=5, default = '00000')
-    lat3=models.DecimalField(decimal_places=2,max_digits=5, default = '00000')
-    lon3=models.DecimalField(decimal_places=2,max_digits=5, default = '00000')
-    lat4=models.DecimalField(decimal_places=2,max_digits=5, default = '00000')
-    lon4=models.DecimalField(decimal_places=2,max_digits=5, default = '00000')'''
     Area=models.IntegerField()
     poly = models.PolygonField(default='')
     crops= models.CharField(max_length=100, blank=True, default='Rice')
